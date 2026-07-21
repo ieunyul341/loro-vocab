@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#86B27B">
+<title>Loro Vocab</title>
+<style>
+:root{--bg:#f4f8f2;--panel:#fff;--text:#243027;--muted:#6f7d72;--line:#dbe7d7;--primary:#86B27B;--primary-dark:#628a59;--soft:#edf5ea;--good:#2f7d4a;--bad:#c85d5d;--shadow:0 18px 45px rgba(65,92,59,.13)}
+*{box-sizing:border-box} body{margin:0;min-height:100vh;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans KR",sans-serif;color:var(--text);background:radial-gradient(circle at 12% 0%,rgba(134,178,123,.28),transparent 32%),linear-gradient(180deg,#fcfefb 0%,var(--bg) 100%)}
+button{font:inherit} .app{max-width:780px;margin:auto;padding:18px 16px 46px} .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:850;font-size:21px} .logo{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;box-shadow:var(--shadow)}
+.icon-btn{border:1px solid var(--line);background:#fff;border-radius:13px;padding:10px 12px;cursor:pointer;color:var(--text)}
+.panel{background:rgba(255,255,255,.95);border:1px solid rgba(219,231,215,.98);border-radius:28px;padding:24px;box-shadow:var(--shadow);backdrop-filter:blur(12px);animation:fadeUp .35s ease}
+.hidden{display:none!important} @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.pill{display:inline-flex;align-items:center;gap:6px;background:var(--soft);color:var(--primary-dark);border-radius:999px;padding:7px 12px;font-size:13px;font-weight:800;margin-bottom:14px}
+.hero h1{font-size:34px;line-height:1.2;margin:0 0 10px} .hero p{margin:0;color:var(--muted);line-height:1.7}
+.day-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:22px 0} .day-btn{border:1px solid var(--line);background:#fff;border-radius:19px;padding:18px 13px;cursor:pointer;text-align:left;transition:.18s;color:var(--text)}
+.day-btn:hover{transform:translateY(-2px);border-color:var(--primary)} .day-btn.active{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;border-color:transparent;box-shadow:0 10px 22px rgba(98,138,89,.22)}
+.day-btn strong{display:block;font-size:17px;margin-bottom:4px} .day-btn span{font-size:13px;opacity:.82}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px} .primary,.secondary{border-radius:17px;padding:14px 16px;font-weight:850;cursor:pointer;transition:.16s}
+.primary{border:0;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff} .primary:hover{transform:translateY(-1px)} .secondary{border:1px solid var(--line);background:#fff;color:var(--text)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px} .stat{background:#fbfdfb;border:1px solid var(--line);border-radius:17px;padding:14px;text-align:center}
+.stat strong{display:block;font-size:22px} .stat span{display:block;font-size:12px;color:var(--muted);margin-top:3px}
+.progress-track{height:10px;background:#edf3eb;border-radius:999px;overflow:hidden;margin-bottom:18px} .progress-bar{height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--primary-dark));transition:.3s}
+.quiz-meta{display:flex;justify-content:space-between;color:var(--muted);font-size:14px} .word-card{text-align:center;padding:28px 12px 18px} .label{font-size:13px;color:var(--muted);margin-bottom:10px}
+.word{font-size:clamp(42px,9vw,68px);font-weight:900;letter-spacing:-1.5px;word-break:break-word} .pos-badge{display:inline-block;margin-top:10px;padding:7px 12px;border-radius:999px;background:var(--soft);color:var(--primary-dark);font-weight:850;font-size:14px}
+.options{display:grid;gap:11px;margin-top:8px}
+.option{width:100%;text-align:left;border:1px solid var(--line);background:#fff;color:var(--text);padding:16px;border-radius:17px;cursor:pointer;line-height:1.5;transition:.16s;animation:fadeUp .25s ease}
+.option:hover{border-color:var(--primary);background:#fbfdf9} .option.correct{background:#e8f5e9;border-color:var(--good);color:#225b35} .option.wrong{background:#fff0f0;border-color:var(--bad);color:#8b3030}
+.feedback{min-height:30px;margin:16px 0 8px;text-align:center;font-weight:850} .result-score{text-align:center;font-size:56px;font-weight:900;margin:8px 0} .result-sub{text-align:center;color:var(--muted);margin-bottom:20px}
+.wrong-list{display:grid;gap:9px;margin:14px 0 18px} .wrong-item{display:grid;grid-template-columns:1fr auto;gap:10px;border:1px solid var(--line);background:#fff;border-radius:15px;padding:12px 14px}
+.wrong-main strong{display:block} .wrong-main small{color:var(--primary-dark);font-weight:800} .wrong-item span{text-align:right;color:var(--muted);font-size:14px;line-height:1.45}
+.footer-note{margin-top:14px;color:var(--muted);font-size:12px;text-align:center}
+@media(max-width:560px){.day-grid,.actions{grid-template-columns:1fr}.panel{padding:18px;border-radius:22px}.hero h1{font-size:29px}.wrong-item{grid-template-columns:1fr}.wrong-item span{text-align:left}}
+</style>
+</head>
+<body>
+<main class="app">
+<header class="topbar"><div class="brand"><div class="logo">L</div><span>Loro Vocab</span></div><button id="resetBtn" class="icon-btn">↻</button></header>
+
+<section id="home" class="panel">
+<div class="hero"><div class="pill">🌿 품사별 분리 학습</div><h1>같은 단어라도<br>품사별로 따로 익혀요.</h1><p>명사·동사·형용사의 뜻이 다른 단어는 각각 독립 문제로 출제됩니다.</p></div>
+<div id="sheetStatus" class="footer-note" style="margin-top:18px">구글시트에서 단어를 불러오는 중입니다…</div>
+<div id="dayGrid" class="day-grid"></div>
+<div class="actions"><button id="startBtn" class="primary">학습 시작</button><button id="wrongBtn" class="secondary">오답만 복습</button></div>
+<div class="stats"><div class="stat"><strong id="plays">0</strong><span>학습 횟수</span></div><div class="stat"><strong id="answeredTotal">0</strong><span>푼 문제</span></div><div class="stat"><strong id="accuracy">0%</strong><span>누적 정답률</span></div></div>
+<div class="footer-note">오답과 학습 기록은 이 브라우저에 자동 저장됩니다.</div>
+</section>
+
+<section id="quiz" class="panel hidden">
+<div class="progress-track"><div id="progress" class="progress-bar"></div></div><div class="quiz-meta"><span id="counter"></span><span id="score"></span></div>
+<div class="word-card"><div class="label">표시된 품사에 맞는 뜻을 고르세요</div><div id="word" class="word"></div><div id="pos" class="pos-badge"></div></div>
+<div id="options" class="options"></div><div id="feedback" class="feedback"></div><button id="nextBtn" class="primary hidden" style="width:100%">다음 문제</button><button id="homeBtn" class="secondary" style="width:100%;margin-top:10px">학습 종료</button>
+</section>
+
+<section id="result" class="panel hidden">
+<div class="pill">🎉 학습 완료</div><div id="resultScore" class="result-score"></div><div id="resultText" class="result-sub"></div><h2>틀린 항목</h2><div id="wrongList" class="wrong-list"></div>
+<div class="actions"><button id="againBtn" class="primary">같은 범위 다시</button><button id="resultHomeBtn" class="secondary">메인으로</button></div>
+</section>
+</main>
+
+<script>
+const SHEET_ID="1pqkxifp5vpkQiY7B7j6WK8LAHyPGl66s";
+const SHEET_GID="502706340";
+const SHEET_CSV_URL=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${SHEET_GID}`;
+const fallbackEntries=[{"day": 9, "word": "contrary", "pos": "형용사", "meaning": "반대의"}, {"day": 9, "word": "contrary", "pos": "명사", "meaning": "반대되는 것"}, {"day": 9, "word": "contrast", "pos": "명사", "meaning": "대조, 대비"}, {"day": 9, "word": "contrast", "pos": "동사", "meaning": "대조하다"}, {"day": 9, "word": "controversy", "pos": "명사", "meaning": "논쟁, 논란"}, {"day": 9, "word": "counterattack", "pos": "명사", "meaning": "반격"}, {"day": 9, "word": "counterattack", "pos": "동사", "meaning": "반격하다"}, {"day": 9, "word": "counterfeit", "pos": "형용사", "meaning": "위조의, 가짜의"}, {"day": 9, "word": "counterfeit", "pos": "명사", "meaning": "위조품, 가짜"}, {"day": 9, "word": "counterfeit", "pos": "동사", "meaning": "위조하다"}, {"day": 9, "word": "counterpart", "pos": "명사", "meaning": "상대방, 대응하는 사람 또는 것"}, {"day": 9, "word": "withdraw", "pos": "동사", "meaning": "철회하다, 취소하다, 그만두다, 인출하다, 철수하다"}, {"day": 9, "word": "withhold", "pos": "동사", "meaning": "주지 않다, 유보하다"}, {"day": 9, "word": "withstand", "pos": "동사", "meaning": "저항하다, 견디다"}, {"day": 9, "word": "adjust", "pos": "동사", "meaning": "맞추다, 조정하다, 적응하다"}, {"day": 9, "word": "accompany", "pos": "동사", "meaning": "동행하다, 수반하다"}, {"day": 9, "word": "accustomed", "pos": "형용사", "meaning": "익숙한"}, {"day": 9, "word": "account", "pos": "명사", "meaning": "계좌, 설명, 이유, 계산서, 계정"}, {"day": 9, "word": "account", "pos": "동사", "meaning": "설명하다, 원인이 되다, 차지하다"}, {"day": 9, "word": "accumulate", "pos": "동사", "meaning": "모으다, 축적하다"}, {"day": 9, "word": "appoint", "pos": "동사", "meaning": "임명하다, 지정하다, 정하다"}, {"day": 9, "word": "approach", "pos": "명사", "meaning": "접근, 접근법"}, {"day": 9, "word": "approach", "pos": "동사", "meaning": "접근하다, 다가가다, 다루다"}, {"day": 9, "word": "await", "pos": "동사", "meaning": "기다리다"}, {"day": 9, "word": "abandon", "pos": "동사", "meaning": "버리다, 떠나다, 포기하다"}, {"day": 9, "word": "arrogant", "pos": "형용사", "meaning": "거만한, 오만한"}, {"day": 9, "word": "telescope", "pos": "명사", "meaning": "망원경"}, {"day": 9, "word": "telegraph", "pos": "명사", "meaning": "전보"}, {"day": 9, "word": "telegraph", "pos": "동사", "meaning": "전보를 치다, 알리다"}, {"day": 9, "word": "telecommute", "pos": "동사", "meaning": "재택근무하다"}, {"day": 9, "word": "autograph", "pos": "명사", "meaning": "사인, 자필 서명"}, {"day": 9, "word": "autograph", "pos": "동사", "meaning": "사인하다"}, {"day": 9, "word": "autobiography", "pos": "명사", "meaning": "자서전"}, {"day": 9, "word": "automobile", "pos": "명사", "meaning": "자동차"}, {"day": 9, "word": "automobile", "pos": "형용사", "meaning": "자동차의"}, {"day": 10, "word": "geography", "pos": "명사", "meaning": "지리학"}, {"day": 10, "word": "geology", "pos": "명사", "meaning": "지질학"}, {"day": 10, "word": "geometry", "pos": "명사", "meaning": "기하학"}, {"day": 10, "word": "multiple", "pos": "형용사", "meaning": "다수의, 다양한"}, {"day": 10, "word": "multiple", "pos": "명사", "meaning": "배수"}, {"day": 10, "word": "multimedia", "pos": "명사", "meaning": "멀티미디어"}, {"day": 10, "word": "multimedia", "pos": "형용사", "meaning": "멀티미디어의"}, {"day": 10, "word": "multitude", "pos": "명사", "meaning": "다수, 군중"}, {"day": 10, "word": "monologue", "pos": "명사", "meaning": "독백"}, {"day": 10, "word": "monoculture", "pos": "명사", "meaning": "단일 재배, 단일 문화 또는 사회"}, {"day": 10, "word": "union", "pos": "명사", "meaning": "조합, 연합, 단체"}, {"day": 10, "word": "unique", "pos": "형용사", "meaning": "유일한, 독특한"}, {"day": 10, "word": "unify", "pos": "동사", "meaning": "통일하다, 통합하다"}, {"day": 10, "word": "unite", "pos": "동사", "meaning": "연합하다, 결합하다"}, {"day": 10, "word": "unit", "pos": "명사", "meaning": "단위, 부대, 유닛"}, {"day": 10, "word": "universe", "pos": "명사", "meaning": "우주, 전 세계"}, {"day": 10, "word": "uniform", "pos": "명사", "meaning": "제복, 교복"}, {"day": 10, "word": "uniform", "pos": "형용사", "meaning": "동일한, 일관된"}, {"day": 10, "word": "bilingual", "pos": "형용사", "meaning": "2개 국어를 사용하는"}, {"day": 10, "word": "bilingual", "pos": "명사", "meaning": "2개 국어 사용자"}, {"day": 10, "word": "balance", "pos": "명사", "meaning": "균형"}, {"day": 10, "word": "balance", "pos": "동사", "meaning": "균형을 잡다"}, {"day": 10, "word": "duplicate", "pos": "동사", "meaning": "복사하다, 복제하다"}, {"day": 10, "word": "duplicate", "pos": "형용사", "meaning": "복사의"}, {"day": 10, "word": "duplicate", "pos": "명사", "meaning": "복사본, 복제품"}, {"day": 10, "word": "dual", "pos": "형용사", "meaning": "둘의, 이중의"}, {"day": 10, "word": "twilight", "pos": "명사", "meaning": "황혼, 해질녘"}, {"day": 10, "word": "twist", "pos": "명사", "meaning": "비틀기, 굴곡"}, {"day": 10, "word": "twist", "pos": "동사", "meaning": "비틀다, 꼬다, 왜곡하다"}, {"day": 10, "word": "triangle", "pos": "명사", "meaning": "삼각형"}, {"day": 10, "word": "tribe", "pos": "명사", "meaning": "부족, 종족"}, {"day": 10, "word": "trivial", "pos": "형용사", "meaning": "사소한, 하찮은"}];
+let entries=[];
+const state={selected:"all",quiz:[],index:0,score:0,answered:false,wrong:[]};
+const $=id=>document.getElementById(id);
+const keyOf=x=>`${x.day}|${x.word}|${x.pos}`;
+
+function shuffle(arr){
+  const a=[...arr];
+  for(let i=a.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+function parseCSV(text){
+  const rows=[];
+  let row=[], field="", quoted=false;
+  for(let i=0;i<text.length;i++){
+    const ch=text[i];
+    if(quoted){
+      if(ch==='"' && text[i+1]==='"'){ field+='"'; i++; }
+      else if(ch==='"') quoted=false;
+      else field+=ch;
+    } else {
+      if(ch==='"') quoted=true;
+      else if(ch===','){ row.push(field); field=""; }
+      else if(ch==='\n'){ row.push(field); rows.push(row); row=[]; field=""; }
+      else if(ch!=='\r') field+=ch;
+    }
+  }
+  if(field.length || row.length){ row.push(field); rows.push(row); }
+  return rows;
+}
+
+function normalizeSheetRows(csvText){
+  const rows=parseCSV(csvText);
+  if(rows.length<2) return [];
+  const headers=rows[0].map(v=>v.trim());
+  const idx={
+    day:headers.indexOf("Day"),
+    word:headers.indexOf("영단어"),
+    pos:headers.indexOf("품사"),
+    meaning:headers.indexOf("뜻"),
+    use:headers.indexOf("사용")
+  };
+  if(Object.values(idx).slice(0,4).some(v=>v<0)) throw new Error("시트 헤더가 맞지 않습니다.");
+  return rows.slice(1).map(r=>({
+    day:Number((r[idx.day]||"").trim()),
+    word:(r[idx.word]||"").trim(),
+    pos:(r[idx.pos]||"").trim(),
+    meaning:(r[idx.meaning]||"").trim(),
+    use:idx.use>=0?(r[idx.use]||"Y").trim().toUpperCase():"Y"
+  })).filter(x=>x.day && x.word && x.pos && x.meaning && x.use!=="N");
+}
+
+async function loadEntries(){
+  const status=$("sheetStatus");
+  try{
+    const res=await fetch(SHEET_CSV_URL+`&t=${Date.now()}`,{cache:"no-store"});
+    if(!res.ok) throw new Error("시트 접근 실패");
+    const text=await res.text();
+    const loaded=normalizeSheetRows(text);
+    if(loaded.length<4) throw new Error("사용 가능한 단어가 너무 적습니다.");
+    entries=loaded;
+    status.textContent=`구글시트와 연결됨 · 총 ${entries.length}개 학습 항목`;
+  }catch(err){
+    entries=fallbackEntries;
+    status.textContent=`구글시트를 읽지 못해 내장 단어 ${entries.length}개를 사용 중입니다. 공유 설정을 확인해 주세요.`;
+  }
+  renderDayButtons();
+}
+
+function renderDayButtons(){
+  const grid=$("dayGrid");
+  const counts={};
+  entries.forEach(x=>counts[x.day]=(counts[x.day]||0)+1);
+  const days=Object.keys(counts).map(Number).sort((a,b)=>a-b);
+  grid.innerHTML="";
+  days.forEach(day=>{
+    const b=document.createElement("button");
+    b.className="day-btn";
+    b.dataset.day=String(day);
+    b.innerHTML=`<strong>DAY ${String(day).padStart(2,"0")}</strong><span>${counts[day]}개 학습 항목</span>`;
+    b.onclick=()=>selectDay(b);
+    grid.appendChild(b);
+  });
+  const all=document.createElement("button");
+  all.className="day-btn active";
+  all.dataset.day="all";
+  all.innerHTML=`<strong>전체 학습</strong><span>${entries.length}개 학습 항목</span>`;
+  all.onclick=()=>selectDay(all);
+  grid.appendChild(all);
+  state.selected="all";
+}
+
+function selectDay(btn){
+  state.selected=btn.dataset.day;
+  document.querySelectorAll(".day-btn").forEach(x=>x.classList.remove("active"));
+  btn.classList.add("active");
+}
+
+function renderStats(){
+  const s=JSON.parse(localStorage.getItem("loroPosStats")||'{"plays":0,"answered":0,"correct":0}');
+  $("plays").textContent=s.plays;
+  $("answeredTotal").textContent=s.answered;
+  $("accuracy").textContent=s.answered?Math.round(s.correct/s.answered*100)+"%":"0%";
+}
+
+function start(mode="normal"){
+  if(entries.length<4){ alert("문제를 만들 단어가 부족합니다."); return; }
+  let pool;
+  if(mode==="wrong"){
+    const saved=JSON.parse(localStorage.getItem("loroPosWrong")||"[]");
+    pool=entries.filter(x=>saved.includes(keyOf(x)));
+    if(pool.length<4){alert("오답 항목이 4개 이상 쌓이면 복습할 수 있어요.");return}
+  } else {
+    pool=state.selected==="all"?entries:entries.filter(x=>String(x.day)===state.selected);
+  }
+  state.quiz=shuffle(pool);
+  state.index=0; state.score=0; state.wrong=[];
+  $("home").classList.add("hidden");
+  $("result").classList.add("hidden");
+  $("quiz").classList.remove("hidden");
+  showQuestion();
+}
+
+function distractors(q){
+  const same=shuffle(entries.filter(x=>keyOf(x)!==keyOf(q)&&x.pos===q.pos));
+  const other=shuffle(entries.filter(x=>keyOf(x)!==keyOf(q)&&x.pos!==q.pos));
+  const out=[];
+  for(const item of [...same,...other]){
+    if(item.meaning!==q.meaning&&!out.includes(item.meaning)) out.push(item.meaning);
+    if(out.length===3) break;
+  }
+  return out;
+}
+
+function showQuestion(){
+  const q=state.quiz[state.index];
+  state.answered=false;
+  $("nextBtn").classList.add("hidden");
+  $("feedback").textContent="";
+  $("counter").textContent=`${state.index+1} / ${state.quiz.length}`;
+  $("score").textContent=`점수 ${state.score}`;
+  $("progress").style.width=`${state.index/state.quiz.length*100}%`;
+  $("word").textContent=q.word;
+  $("pos").textContent=q.pos;
+  const choices=shuffle([q.meaning,...distractors(q)]);
+  $("options").innerHTML="";
+  choices.forEach(c=>{
+    const b=document.createElement("button");
+    b.className="option";
+    b.textContent=c;
+    b.addEventListener("click",()=>answer(b,c,q));
+    $("options").appendChild(b);
+  });
+}
+
+function answer(b,c,q){
+  if(state.answered)return;
+  state.answered=true;
+  document.querySelectorAll(".option").forEach(x=>x.disabled=true);
+  if(c===q.meaning){
+    b.classList.add("correct");
+    state.score++;
+    $("feedback").textContent="✅ 정답입니다!";
+  } else {
+    b.classList.add("wrong");
+    document.querySelectorAll(".option").forEach(x=>{if(x.textContent===q.meaning)x.classList.add("correct")});
+    $("feedback").textContent=`❌ 정답: ${q.meaning}`;
+    state.wrong.push(q);
+    const saved=new Set(JSON.parse(localStorage.getItem("loroPosWrong")||"[]"));
+    saved.add(keyOf(q));
+    localStorage.setItem("loroPosWrong",JSON.stringify([...saved]));
+  }
+  $("score").textContent=`점수 ${state.score}`;
+  $("nextBtn").classList.remove("hidden");
+}
+
+function nextQuestion(){state.index++;state.index>=state.quiz.length?finish():showQuestion()}
+
+function finish(){
+  const s=JSON.parse(localStorage.getItem("loroPosStats")||'{"plays":0,"answered":0,"correct":0}');
+  s.plays++; s.answered+=state.quiz.length; s.correct+=state.score;
+  localStorage.setItem("loroPosStats",JSON.stringify(s));
+  $("quiz").classList.add("hidden");
+  $("result").classList.remove("hidden");
+  $("resultScore").textContent=`${state.score} / ${state.quiz.length}`;
+  $("resultText").textContent=`정답률 ${Math.round(state.score/state.quiz.length*100)}%`;
+  $("wrongList").innerHTML=state.wrong.length
+    ?state.wrong.map(x=>`<div class="wrong-item"><div class="wrong-main"><strong>${x.word}</strong><small>${x.pos}</small></div><span>${x.meaning}</span></div>`).join("")
+    :"<div class='footer-note'>모든 항목을 맞혔어요. 훌륭해요!</div>";
+  renderStats();
+}
+
+function home(){
+  $("quiz").classList.add("hidden");
+  $("result").classList.add("hidden");
+  $("home").classList.remove("hidden");
+  renderStats();
+}
+
+$("startBtn").onclick=()=>start();
+$("wrongBtn").onclick=()=>start("wrong");
+$("nextBtn").onclick=nextQuestion;
+$("homeBtn").onclick=home;
+$("againBtn").onclick=()=>start();
+$("resultHomeBtn").onclick=home;
+$("resetBtn").onclick=()=>{
+  if(confirm("학습 기록과 오답 목록을 모두 초기화할까요?")){
+    localStorage.removeItem("loroPosStats");
+    localStorage.removeItem("loroPosWrong");
+    renderStats();
+  }
+};
+renderStats();
+loadEntries();
+</script>
+</body></html>
